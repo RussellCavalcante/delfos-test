@@ -15,7 +15,8 @@ class MeasurementsInput(CustomBaseModel):
     measurements: Measurements
 
 
-class AvarageOutput(CustomBaseModel):
+class AvarageOutput(CustomBaseModel) :
+    name: str
     avarage_value: float
     asset_id: int
     timestamp: str

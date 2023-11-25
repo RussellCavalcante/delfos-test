@@ -122,13 +122,16 @@ class MeasurementsUseCases:
     def list_average_value_(self, specific_column: str = '', asset_id: int = 1, timestamp: str ='' ):
         # asset_id: int = 1, specific_column: str = '', timestamp: str =''
 
-        sql_query = text(f"SELECT AVG(CAST({specific_column} AS numeric)), assets_id, timestamp  FROM assets a LEFT JOIN measurements m ON a.id = m.assets_id WHERE assets_id = {asset_id} AND timestamp = '{timestamp}' GROUP BY m.id; ")
+        sql_query = text(f"""SELECT a.name, AVG(CAST({specific_column} AS numeric)), m.assets_id, m.timestamp
+                            FROM assets a 
+                            LEFT JOIN measurements m ON a.id = m.assets_id 
+                            WHERE assets_id = {asset_id} AND timestamp = '{timestamp}' GROUP BY a.name, m.assets_id, m.timestamp; """)
         # print(asset_id, specific_column, timestamp)
         query_on_db = self.db_session.execute(sql_query)
         data = query_on_db.fetchall()
         # print(data, sql_query)
         # input()
-        chave = ['avarage_value', 'asset_id', 'timestamp']
+        chave = ['name','avarage_value', 'asset_id', 'timestamp']
 
         dicionario = dict(zip(chave, data[0]))
 
