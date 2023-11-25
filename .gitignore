@@ -1,0 +1,7 @@
+# .gitignore
+
+# Ignorar todos os diretórios chamados 'venv'
+**/venv/
+
+# Ignorar todos os diretórios chamados '__pycache__'
+**/__pycache__/
